@@ -56,7 +56,6 @@ class Grammar:
                 grammar[rule.lhs].add(rule.rhs)
 
         result = {k: list(v) for k, v in grammar.items()}
-        print(result)
         result[self.start_symbol] = [
             seq + [EndElement()] for seq in result[self.start_symbol]
         ]
