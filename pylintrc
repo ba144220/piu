@@ -36,7 +36,8 @@ disable=missing-class-docstring,
         no-else-break,
         no-member,
         fixme,          
-        unnecessary-pass
+        unnecessary-pass,
+        pointless-string-statement
 
 [LOGGING]
 
