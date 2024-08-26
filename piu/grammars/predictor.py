@@ -74,6 +74,10 @@ class Predictor:
         """
         self.stacks: List[Stack] = []
 
+        self.grammar[self.initial_rule] = [
+            seq + [EndElement()] for seq in self.grammar[self.initial_rule]
+        ]
+
         for seq in self.grammar[self.initial_rule]:
             self.stacks.append(Stack(seq))
 
@@ -85,11 +89,8 @@ class Predictor:
     def _validate_gnf(self):
         for seqs in self.grammar.values():
             for seq in seqs:
-                if isinstance(seq[0], RuleRefElement):
+                if not isinstance(seq[0], TerminalElement):
                     return False
-                for i in range(1, len(seq)):
-                    if isinstance(seq[i], TerminalElement):
-                        return False
         return True
 
     def _get_allowed_next_chars(self):

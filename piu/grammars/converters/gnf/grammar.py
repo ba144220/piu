@@ -1,12 +1,12 @@
 from typing import List, Set
 
-from piu.grammars.element import RuleRefElement, TerminalElement, EndElement
-from piu.grammars.converters.type import CNFGrammar
+from piu.grammars.element import RuleRefElement, TerminalElement
+from piu.grammars.converters.type import GeneralGrammar
 from piu.grammars.converters.gnf.rule import Rule
 
 
 class Grammar:
-    def __init__(self, grammar: CNFGrammar, start_symbol: RuleRefElement):
+    def __init__(self, grammar: GeneralGrammar, start_symbol: RuleRefElement):
         self.rules: List[Rule] = []
         self.build_rules(grammar)
         self.start_symbol = start_symbol
@@ -17,10 +17,10 @@ class Grammar:
     def __getitem__(self, lhs: RuleRefElement) -> List[Rule]:
         return [r for r in self.rules if r.lhs == lhs]
 
-    def build_rules(self, grammar: CNFGrammar):
+    def build_rules(self, grammar: GeneralGrammar):
         self.split_rules(grammar)
 
-    def split_rules(self, grammar: CNFGrammar):
+    def split_rules(self, grammar: GeneralGrammar):
         """
         split rules with more than 1 right-hand-side to multiple rules with 1 right-hand-side
         example:
@@ -46,7 +46,7 @@ class Grammar:
                 else:
                     self.non_terminals.add(el)
 
-    def export_grammar(self) -> CNFGrammar:
+    def export_grammar(self) -> GeneralGrammar:
         grammar = {}
 
         for rule in self.rules:
@@ -56,10 +56,6 @@ class Grammar:
                 grammar[rule.lhs].add(rule.rhs)
 
         result = {k: list(v) for k, v in grammar.items()}
-        result[self.start_symbol] = [
-            seq + [EndElement()] for seq in result[self.start_symbol]
-        ]
-
         return result
 
     def sort(self):

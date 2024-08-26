@@ -3,19 +3,20 @@ import inspect
 from typing import List, Dict
 from piu.grammars.converters.gnf.simplifier import SimplifiedGrammar
 from piu.grammars.converters.gnf.rule import Rule
-from piu.grammars.converters.type import CNFGrammar
+from piu.grammars.converters.type import GeneralGrammar
 from piu.grammars.converters.utils import DEBUG
 from piu.grammars.element import RuleRefElement
 
 
 class GreibachGrammar(SimplifiedGrammar):
 
-    def __init__(self, grammar: CNFGrammar, start_symbol: RuleRefElement):
+    def __init__(self, grammar: GeneralGrammar, start_symbol: RuleRefElement):
         super().__init__(grammar, start_symbol)
 
         self.mapping: Dict[RuleRefElement, int] = {}
         self.reverse_mapping: Dict[int, RuleRefElement] = {}
 
+        self.simplify()
         self.convert()
 
     def convert(self):

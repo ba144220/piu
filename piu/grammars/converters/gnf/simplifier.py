@@ -5,7 +5,7 @@ import inspect
 
 from piu.grammars.converters.gnf.grammar import Grammar
 from piu.grammars.converters.gnf.rule import Rule
-from piu.grammars.converters.type import CNFGrammar
+from piu.grammars.converters.type import GeneralGrammar
 from piu.grammars.element import RuleRefElement, EmptyElement
 from piu.grammars.converters.utils import DEBUG
 
@@ -18,10 +18,9 @@ class AlterStartElement(RuleRefElement):
 
 class SimplifiedGrammar(Grammar):
 
-    def __init__(self, grammar: CNFGrammar, start_symbol: RuleRefElement):
+    def __init__(self, grammar: GeneralGrammar, start_symbol: RuleRefElement):
         super().__init__(grammar, start_symbol)
         self.grammar_timeline: List[Tuple[str, Grammar]] = []
-        self.simplify()
 
     def simplify(self):
         self.add_new_start_symbol()
@@ -75,6 +74,7 @@ class SimplifiedGrammar(Grammar):
                 for rule in self.rules
                 if not rule.get_all_element().intersection(redundant_symbols)
             ]
+            self.non_terminals = self.non_terminals.difference(redundant_symbols)
         if DEBUG:
             self.grammar_timeline.append((inspect.stack()[0][3], copy.deepcopy(self)))
 
@@ -99,6 +99,8 @@ class SimplifiedGrammar(Grammar):
                 for rule in self.rules
                 if not set(rule.get_all_element()).intersection(unreachable_symbols)
             ]
+
+            self.non_terminals = self.non_terminals.difference(unreachable_symbols)
 
         if DEBUG:
             self.grammar_timeline.append((inspect.stack()[0][3], copy.deepcopy(self)))

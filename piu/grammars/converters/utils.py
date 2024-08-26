@@ -1,10 +1,10 @@
-from piu.grammars.converters.type import CNFGrammar
+from piu.grammars.converters.type import GeneralGrammar
 
 
-DEBUG = False
+DEBUG = True
 
 
-def print_cnf_grammar(grammar: CNFGrammar):
+def print_cnf_grammar(grammar: GeneralGrammar):
     for lhs, rhs in grammar.items():
         print(
             str(lhs)
