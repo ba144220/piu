@@ -4,7 +4,7 @@ from piu.grammars.element import (
     EmptyElement,
     EndElement,
 )
-from piu.grammars.predictor import Predictor
+from piu.grammars.parser import Parser
 from piu.grammars.converters.gnf.greibach import GreibachGrammar
 
 
@@ -99,7 +99,7 @@ INITIAL_RULE_ID = r("S")
 if __name__ == "__main__":
     gnf = GreibachGrammar(PARENTHESIS_CNF_GRAMMAR, r("S"))
     PARENTHESIS_GNF_GRAMMAR = gnf.export_grammar()
-    parser = Predictor(PARENTHESIS_GNF_GRAMMAR, gnf.start_symbol)
+    parser = Parser(PARENTHESIS_GNF_GRAMMAR, gnf.start_symbol)
 
     STRING = ""
     while True:

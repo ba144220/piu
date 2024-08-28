@@ -7,7 +7,7 @@ from piu.grammars.element import (
     EndElement,
 )
 from piu.grammars.converters.utils import print_cnf_grammar
-from piu.grammars.predictor import Predictor
+from piu.grammars.parser import Parser
 
 
 def t(v):
@@ -62,11 +62,11 @@ for function_name, grammar in gnf.grammar_timeline:
     print(grammar.non_terminals)
     print_cnf_grammar(grammar.export_grammar())
 
-predictor = Predictor(gnf.export_grammar(), gnf.start_symbol)
+parser = Parser(gnf.export_grammar(), gnf.start_symbol)
 
 STRING = ""
 while True:
     char = input("Enter a char: ")
-    predictor.add_char(char)
+    parser.add_char(char)
     STRING += char
     print("String: ", STRING)

@@ -50,7 +50,7 @@ def print_stacks(stacks: List[Stack]):
         print(stack)
 
 
-class Predictor:
+class Parser:
     """
     A next char predictor using GNF grammar
     """
