@@ -1,3 +1,4 @@
+# Depricated
 # pylint: disable=all
 
 from enum import Enum

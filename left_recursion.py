@@ -1,3 +1,5 @@
+# Depricated
+# pylint: disable=all
 import re
 
 EMPTY = "ϵ"
