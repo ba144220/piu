@@ -1,8 +1,8 @@
 import copy
 import inspect
 from typing import List, Dict
-from piu.grammars.converters.gnf.simplifier import SimplifiedGrammar
-from piu.grammars.converters.gnf.rule import Rule
+from piu.grammars.converters.simplifier import SimplifiedGrammar
+from piu.grammars.converters.rule import Rule
 from piu.grammars.converters.type import GeneralGrammar
 from piu.grammars.converters.utils import DEBUG
 from piu.grammars.element import RuleRefElement

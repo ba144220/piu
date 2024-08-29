@@ -2,7 +2,7 @@ from typing import List, Set
 
 from piu.grammars.element import RuleRefElement, TerminalElement
 from piu.grammars.converters.type import GeneralGrammar
-from piu.grammars.converters.gnf.rule import Rule
+from piu.grammars.converters.rule import Rule
 
 
 class Grammar:

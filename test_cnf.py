@@ -1,5 +1,5 @@
 from piu.grammars.converters.gnf.greibach import GreibachGrammar
-from piu.grammars.converters.gnf.chomsky import ChomskyGrammar
+from piu.grammars.converters.cnf.chomsky import ChomskyGrammar
 from piu.grammars.element import (
     TerminalElement,
     RuleRefElement,

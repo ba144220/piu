@@ -3,8 +3,8 @@ from typing import List, Tuple
 import itertools
 import inspect
 
-from piu.grammars.converters.gnf.grammar import Grammar
-from piu.grammars.converters.gnf.rule import Rule
+from piu.grammars.converters.grammar import Grammar
+from piu.grammars.converters.rule import Rule
 from piu.grammars.converters.type import GeneralGrammar
 from piu.grammars.element import RuleRefElement, EmptyElement
 from piu.grammars.converters.utils import DEBUG

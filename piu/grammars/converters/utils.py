@@ -1,7 +1,7 @@
 from piu.grammars.converters.type import GeneralGrammar
 
 
-DEBUG = True
+DEBUG = False
 
 
 def print_cnf_grammar(grammar: GeneralGrammar):
