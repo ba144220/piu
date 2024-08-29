@@ -1,4 +1,4 @@
-from typing import List, Set
+from typing import List, Set, Union
 
 from piu.grammars.element import RuleRefElement, TerminalElement
 from piu.grammars.converters.type import GeneralGrammar
@@ -6,7 +6,9 @@ from piu.grammars.converters.rule import Rule
 
 
 class Grammar:
-    def __init__(self, grammar: GeneralGrammar, start_symbol: RuleRefElement):
+    def __init__(
+        self, grammar: Union[str, GeneralGrammar], start_symbol: RuleRefElement
+    ):
         self.rules: List[Rule] = []
         self.build_rules(grammar)
         self.start_symbol = start_symbol

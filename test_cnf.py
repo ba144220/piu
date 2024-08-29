@@ -6,12 +6,12 @@ from piu.grammars.element import (
     EmptyElement,
     EndElement,
 )
-from piu.grammars.converters.utils import print_cnf_grammar
+from piu.grammars.converters.utils import print_grammar
 from piu.grammars.parser import Parser
 
 
 def t(v):
-    return TerminalElement(v)
+    return TerminalElement(v, None)
 
 
 def r(v):
@@ -53,14 +53,14 @@ cnf = ChomskyGrammar(PARENTHESIS_GRAMMAR, RuleRefElement("S"))
 for function_name, grammar in cnf.grammar_timeline:
     print(f"======{function_name}======")
     print(grammar.non_terminals)
-    print_cnf_grammar(grammar.export_grammar())
+    print_grammar(grammar.export_grammar())
 
 gnf = GreibachGrammar(cnf.export_grammar(), cnf.start_symbol)
 
 for function_name, grammar in gnf.grammar_timeline:
     print(f"======{function_name}======")
     print(grammar.non_terminals)
-    print_cnf_grammar(grammar.export_grammar())
+    print_grammar(grammar.export_grammar())
 
 parser = Parser(gnf.export_grammar(), gnf.start_symbol)
 

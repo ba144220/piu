@@ -1,3 +1,6 @@
+from lark.lexer import TerminalDef
+
+
 class Element:
 
     def __init__(self, value: str):
@@ -27,6 +30,10 @@ class RuleRefElement(Element):
 class TerminalElement(Element):
     """Element for terminal"""
 
+    def __init__(self, value: str, definition: TerminalDef):
+        super().__init__(value)
+        self.definition = definition
+
 
 class EndElement(Element):
     """Element for end"""
@@ -39,4 +46,4 @@ class EmptyElement(TerminalElement):
     """Element for empty"""
 
     def __init__(self):
-        super().__init__("ε")
+        super().__init__("ε", None)

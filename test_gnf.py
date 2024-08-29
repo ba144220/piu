@@ -5,11 +5,11 @@ from piu.grammars.element import (
     EmptyElement,
     EndElement,
 )
-from piu.grammars.converters.utils import print_cnf_grammar
+from piu.grammars.converters.utils import print_grammar
 
 
 def t(v):
-    return TerminalElement(v)
+    return TerminalElement(v, None)
 
 
 def r(v):
@@ -48,6 +48,6 @@ g = GreibachGrammar(GRAMMAR, RuleRefElement("S"))
 
 for function_name, grammar in g.grammar_timeline:
     print(f"======{function_name}======")
-    print_cnf_grammar(grammar.export_grammar())
+    print_grammar(grammar.export_grammar())
 
-print_cnf_grammar(g.export_grammar())
+print_grammar(g.export_grammar())
