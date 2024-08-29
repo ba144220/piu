@@ -97,7 +97,7 @@ class SimplifiedGrammar(Grammar):
             self.rules = [
                 rule
                 for rule in self.rules
-                if not set(rule.get_all_element()).intersection(unreachable_symbols)
+                if not rule.get_all_element().intersection(unreachable_symbols)
             ]
 
             self.non_terminals = self.non_terminals.difference(unreachable_symbols)

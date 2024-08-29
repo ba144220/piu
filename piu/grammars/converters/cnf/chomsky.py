@@ -27,7 +27,7 @@ class ChomskyGrammar(SimplifiedGrammar):
         singles: Dict[TerminalElement, RuleRefElement] = {}
         multis: Dict[List[Element], RuleRefElement] = {}
 
-        for lhs in self.non_terminals:
+        for lhs in sorted(self.non_terminals):
             rules = self[lhs]
             if len(rules) == 1 and len(rules[0].rhs) == 1:
                 term = rules[0].rhs[0]
@@ -39,7 +39,7 @@ class ChomskyGrammar(SimplifiedGrammar):
             if len(rules) == 1:
                 multis[rules[0].rhs] = lhs
         # pylint: disable=too-many-nested-blocks
-        for lhs in self.non_terminals.copy():
+        for lhs in sorted(self.non_terminals.copy()):
             rules = self[lhs]
             for rule in rules:
                 if len(rule.rhs) == 2:

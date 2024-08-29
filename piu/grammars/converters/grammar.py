@@ -57,7 +57,7 @@ class Grammar:
             else:
                 grammar[rule.lhs].add(rule.rhs)
 
-        result = {k: list(v) for k, v in grammar.items()}
+        result = {k: sorted(list(v)) for k, v in grammar.items()}
         return result
 
     def sort(self):
