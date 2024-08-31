@@ -50,17 +50,23 @@ PARENTHESIS_GRAMMAR = {r("S"): [[r("S"), r("S")], [t("("), r("S"), t(")")], [emp
 
 cnf = ChomskyGrammar(PARENTHESIS_GRAMMAR, RuleRefElement("S"))
 
+print("=====CNF=====")
 for function_name, grammar in cnf.grammar_timeline:
     print(f"======{function_name}======")
     print(grammar.non_terminals)
     print_grammar(grammar.export_grammar())
 
+print_grammar(cnf.export_grammar())
+
+print("=====GNF=====")
 gnf = GreibachGrammar(cnf.export_grammar(), cnf.start_symbol)
 
 for function_name, grammar in gnf.grammar_timeline:
     print(f"======{function_name}======")
     print(grammar.non_terminals)
     print_grammar(grammar.export_grammar())
+
+print_grammar(gnf.export_grammar())
 
 parser = Parser(gnf.export_grammar(), gnf.start_symbol)
 

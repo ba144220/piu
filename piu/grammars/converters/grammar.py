@@ -14,6 +14,7 @@ class Grammar:
         self.start_symbol = start_symbol
         self.terminals: Set[TerminalElement] = set()
         self.non_terminals: Set[RuleRefElement] = set()
+        self.numbers = 10000
         self.detect_symbols()
 
     def __getitem__(self, lhs: RuleRefElement) -> List[Rule]:
@@ -48,9 +49,12 @@ class Grammar:
                 else:
                     self.non_terminals.add(el)
 
-    def export_grammar(self) -> GeneralGrammar:
-        grammar = {}
+            # self.numbers = len(self.non_terminals)
 
+    def export_grammar(self) -> GeneralGrammar:
+
+        grammar = {}
+    
         for rule in self.rules:
             if rule.lhs not in grammar:
                 grammar[rule.lhs] = set([rule.rhs])
@@ -58,7 +62,9 @@ class Grammar:
                 grammar[rule.lhs].add(rule.rhs)
 
         result = {k: sorted(list(v)) for k, v in grammar.items()}
+
         return result
+
 
     def sort(self):
         s_productions = self[self.start_symbol]

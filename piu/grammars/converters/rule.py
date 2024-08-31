@@ -17,6 +17,9 @@ class Rule:
 
     def get_all_element(self) -> Set[Element]:
         return set([self.lhs] + self.rhs)
+    
+    def get_all_element_order(self) -> List[Element]:
+        return [self.lhs] + self.rhs
 
     def is_unit_production(self) -> bool:
         return len(self.rhs) == 1 and isinstance(self.rhs[0], RuleRefElement)

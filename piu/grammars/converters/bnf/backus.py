@@ -1,7 +1,7 @@
 from lark import Lark
 
 from piu.grammars.converters.rule import Rule
-from piu.grammars.element import RuleRefElement, TerminalElement
+from piu.grammars.element import RuleRefElement, TerminalElement, EmptyElement
 from piu.grammars.converters.grammar import Grammar
 
 
@@ -17,7 +17,6 @@ class BackusGrammar(Grammar):
         parser = Lark(grammar, start=self.start)
 
         lark_terminals_dict = {t.name: t for t in parser.terminals}
-
         self.rules = [
             Rule(
                 RuleRefElement(lark_rule.origin.name),
@@ -30,6 +29,8 @@ class BackusGrammar(Grammar):
                         else RuleRefElement(lark_symbol.name)
                     )
                     for lark_symbol in lark_rule.expansion
+                ] if lark_rule.expansion else [
+                    EmptyElement()
                 ],
             )
             for lark_rule in parser.rules

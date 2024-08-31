@@ -39,7 +39,8 @@ class ChomskyGrammar(SimplifiedGrammar):
             if len(rules) == 1:
                 multis[rules[0].rhs] = lhs
         # pylint: disable=too-many-nested-blocks
-        for lhs in sorted(self.non_terminals.copy()):
+        non_terminals = sorted(list(self.non_terminals))
+        for lhs in non_terminals:
             rules = self[lhs]
             for rule in rules:
                 if len(rule.rhs) == 2:
@@ -47,9 +48,10 @@ class ChomskyGrammar(SimplifiedGrammar):
                         if isinstance(el, TerminalElement):
                             if el not in singles:
                                 new_non_terminal = RuleRefElement(
-                                    f"RRE_{len(self.non_terminals)}"
+                                    f"RRE_{self.numbers}"
                                 )
-                                self.non_terminals.add(new_non_terminal)
+                                self.numbers+=1
+                                non_terminals.append(new_non_terminal)
                                 self.rules.append(Rule(new_non_terminal, [el]))
                                 singles[el] = new_non_terminal
                             rule.rhs[index] = singles[el]
@@ -59,22 +61,25 @@ class ChomskyGrammar(SimplifiedGrammar):
                     if isinstance(last, TerminalElement):
                         if last not in singles:
                             new_non_terminal = RuleRefElement(
-                                f"RRE_{len(self.non_terminals)}"
+                                f"RRE_{self.numbers}"
                             )
-                            self.non_terminals.add(new_non_terminal)
+                            self.numbers+=1
+                            non_terminals.append(new_non_terminal)
                             self.rules.append(Rule(new_non_terminal, [last]))
                             singles[last] = new_non_terminal
                         rule.rhs[-1] = singles[last]
                     term = ElementList(rule.rhs[:-1])
                     if term not in multis:
                         new_non_terminal = RuleRefElement(
-                            f"RRE_{len(self.non_terminals)}"
+                            f"RRE_{self.numbers}"
                         )
-                        self.non_terminals.add(new_non_terminal)
+                        self.numbers+=1
+                        non_terminals.append(new_non_terminal)
                         self.rules.append(Rule(new_non_terminal, term))
                         multis[term] = new_non_terminal
                     self.rules.append(Rule(lhs, [multis[term], last]))
                     self.rules.remove(rule)
 
+        self.non_terminals = set(non_terminals)
         if DEBUG:
             self.grammar_timeline.append((inspect.stack()[0][3], copy.deepcopy(self)))

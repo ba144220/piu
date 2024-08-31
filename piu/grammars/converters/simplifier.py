@@ -36,6 +36,7 @@ class SimplifiedGrammar(Grammar):
             new_rule = Rule(new_start_symbol, [self.start_symbol])
             self.rules.insert(0, new_rule)
             self.non_terminals.add(new_start_symbol)
+            self.numbers+=1
             self.start_symbol = new_start_symbol
 
             if DEBUG:
@@ -173,7 +174,7 @@ class SimplifiedGrammar(Grammar):
         1- Add A -> x to grammar whenever B -> x occurs
         2- Delete A -> B from grammar
         """
-        current = {}.fromkeys(self.non_terminals)
+        current = {}.fromkeys(sorted(self.non_terminals))
         current = {key: {key} for key in current}
         prev = {}
         while current != prev:
@@ -186,7 +187,7 @@ class SimplifiedGrammar(Grammar):
 
         new_rules = []
         for non_terminal_a, unit_set in current.items():
-            for non_terminal_b in unit_set:
+            for non_terminal_b in sorted(unit_set):
                 b_rules = self[non_terminal_b]
                 for rule in b_rules:
                     if not rule.is_unit_production():

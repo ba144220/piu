@@ -9,7 +9,7 @@ from piu.grammars.converters.gnf.greibach import GreibachGrammar
 
 
 def t(v):
-    return TerminalElement(v)
+    return TerminalElement(v, None)
 
 
 def r(v):
@@ -51,12 +51,12 @@ K->(A|(AK|(DA|(AKK|(DAK|(DAKK
 """
 GRAMMAR = {
     r("S"): [
-        [t("("), r("A"), end()],
-        [t("("), r("A"), r("D"), end()],
-        [t("("), r("A"), r("K"), r("D"), end()],
-        [t("("), r("D"), r("A"), end()],
-        [t("("), r("D"), r("A"), r("D"), end()],
-        [t("("), r("D"), r("A"), r("K"), r("D"), end()],
+        [t("("), r("A")],
+        [t("("), r("A"), r("D")],
+        [t("("), r("A"), r("K"), r("D")],
+        [t("("), r("D"), r("A")],
+        [t("("), r("D"), r("A"), r("D")],
+        [t("("), r("D"), r("A"), r("K"), r("D")],
     ],
     r("D"): [
         [t("("), r("A")],
@@ -97,9 +97,9 @@ PARENTHESIS_CNF_GRAMMAR = {
 INITIAL_RULE_ID = r("S")
 
 if __name__ == "__main__":
-    gnf = GreibachGrammar(PARENTHESIS_CNF_GRAMMAR, r("S"))
-    PARENTHESIS_GNF_GRAMMAR = gnf.export_grammar()
-    parser = Parser(PARENTHESIS_GNF_GRAMMAR, gnf.start_symbol)
+    # gnf = GreibachGrammar(PARENTHESIS_CNF_GRAMMAR, r("S"))
+    # PARENTHESIS_GNF_GRAMMAR = gnf.export_grammar()
+    parser = Parser(GRAMMAR, r("S"))
 
     STRING = ""
     while True:
