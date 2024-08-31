@@ -36,7 +36,7 @@ class SimplifiedGrammar(Grammar):
             new_rule = Rule(new_start_symbol, [self.start_symbol])
             self.rules.insert(0, new_rule)
             self.non_terminals.add(new_start_symbol)
-            self.numbers+=1
+            self.numbers += 1
             self.start_symbol = new_start_symbol
 
             if DEBUG:

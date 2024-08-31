@@ -54,7 +54,7 @@ class Grammar:
     def export_grammar(self) -> GeneralGrammar:
 
         grammar = {}
-    
+
         for rule in self.rules:
             if rule.lhs not in grammar:
                 grammar[rule.lhs] = set([rule.rhs])
@@ -64,7 +64,6 @@ class Grammar:
         result = {k: sorted(list(v)) for k, v in grammar.items()}
 
         return result
-
 
     def sort(self):
         s_productions = self[self.start_symbol]

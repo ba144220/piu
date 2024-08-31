@@ -17,7 +17,7 @@ class Rule:
 
     def get_all_element(self) -> Set[Element]:
         return set([self.lhs] + self.rhs)
-    
+
     def get_all_element_order(self) -> List[Element]:
         return [self.lhs] + self.rhs
 

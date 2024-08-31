@@ -20,18 +20,20 @@ class BackusGrammar(Grammar):
         self.rules = [
             Rule(
                 RuleRefElement(lark_rule.origin.name),
-                [
-                    (
-                        TerminalElement(
-                            lark_symbol.name, lark_terminals_dict[lark_symbol.name]
+                (
+                    [
+                        (
+                            TerminalElement(
+                                lark_symbol.name, lark_terminals_dict[lark_symbol.name]
+                            )
+                            if lark_symbol.is_term
+                            else RuleRefElement(lark_symbol.name)
                         )
-                        if lark_symbol.is_term
-                        else RuleRefElement(lark_symbol.name)
-                    )
-                    for lark_symbol in lark_rule.expansion
-                ] if lark_rule.expansion else [
-                    EmptyElement()
-                ],
+                        for lark_symbol in lark_rule.expansion
+                    ]
+                    if lark_rule.expansion
+                    else [EmptyElement()]
+                ),
             )
             for lark_rule in parser.rules
         ]

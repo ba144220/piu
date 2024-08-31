@@ -47,25 +47,30 @@ class GreibachGrammar(SimplifiedGrammar):
         """
 
         for _, lhs in self.reverse_mapping.items():
-            
+
             while True:
                 rules = self[lhs]
 
                 for rule in rules:
-                    if isinstance(rule.rhs[0], RuleRefElement) and self.mapping[lhs] > self.mapping[rule.rhs[0]]:
+                    if (
+                        isinstance(rule.rhs[0], RuleRefElement)
+                        and self.mapping[lhs] > self.mapping[rule.rhs[0]]
+                    ):
 
                         matched_rules = self[rule.rhs[0]]
 
                         for matched_rule in matched_rules:
                             if matched_rule.lhs != matched_rule.rhs[0]:
-                                new_rule = Rule(rule.lhs, matched_rule.rhs + rule.rhs[1:])
+                                new_rule = Rule(
+                                    rule.lhs, matched_rule.rhs + rule.rhs[1:]
+                                )
                                 self.rules.append(new_rule)
 
                         self.rules.remove(rule)
                         break
                 else:
                     break
-                        
+
         if DEBUG:
             self.grammar_timeline.append((inspect.stack()[0][3], copy.deepcopy(self)))
 
@@ -78,10 +83,8 @@ class GreibachGrammar(SimplifiedGrammar):
 
                     new_symbols: List[RuleRefElement] = []
                     for rec_rule in recursive_rules:
-                        new_non_terminal = RuleRefElement(
-                            f"RRE_{self.numbers}"
-                        )
-                        self.numbers+=1
+                        new_non_terminal = RuleRefElement(f"RRE_{self.numbers}")
+                        self.numbers += 1
                         self.non_terminals.add(new_non_terminal)
                         self.mapping[new_non_terminal] = len(self.mapping)
                         self.reverse_mapping[len(self.reverse_mapping)] = (
@@ -110,7 +113,6 @@ class GreibachGrammar(SimplifiedGrammar):
         if DEBUG:
             self.grammar_timeline.append((inspect.stack()[0][3], copy.deepcopy(self)))
 
-
     def make_rhs_first_symbol_terminal(self):
 
         while True:
@@ -129,13 +131,17 @@ class GreibachGrammar(SimplifiedGrammar):
             self.grammar_timeline.append((inspect.stack()[0][3], copy.deepcopy(self)))
 
     def export_grammar(self) -> GeneralGrammar:
-        
+
         grammar = super().export_grammar()
 
         lhs_terminal_mapping = {}
 
         for lhs, rhss in grammar.copy().items():
-            if len(rhss) == 1 and len(rhss[0]) == 1 and isinstance(rhss[0][0], TerminalElement):
+            if (
+                len(rhss) == 1
+                and len(rhss[0]) == 1
+                and isinstance(rhss[0][0], TerminalElement)
+            ):
                 lhs_terminal_mapping[lhs] = rhss[0][0]
                 del grammar[lhs]
 

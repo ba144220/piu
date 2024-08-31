@@ -47,10 +47,8 @@ class ChomskyGrammar(SimplifiedGrammar):
                     for index, el in enumerate(rule.rhs):
                         if isinstance(el, TerminalElement):
                             if el not in singles:
-                                new_non_terminal = RuleRefElement(
-                                    f"RRE_{self.numbers}"
-                                )
-                                self.numbers+=1
+                                new_non_terminal = RuleRefElement(f"RRE_{self.numbers}")
+                                self.numbers += 1
                                 non_terminals.append(new_non_terminal)
                                 self.rules.append(Rule(new_non_terminal, [el]))
                                 singles[el] = new_non_terminal
@@ -60,20 +58,16 @@ class ChomskyGrammar(SimplifiedGrammar):
                     last = rule.rhs[-1]
                     if isinstance(last, TerminalElement):
                         if last not in singles:
-                            new_non_terminal = RuleRefElement(
-                                f"RRE_{self.numbers}"
-                            )
-                            self.numbers+=1
+                            new_non_terminal = RuleRefElement(f"RRE_{self.numbers}")
+                            self.numbers += 1
                             non_terminals.append(new_non_terminal)
                             self.rules.append(Rule(new_non_terminal, [last]))
                             singles[last] = new_non_terminal
                         rule.rhs[-1] = singles[last]
                     term = ElementList(rule.rhs[:-1])
                     if term not in multis:
-                        new_non_terminal = RuleRefElement(
-                            f"RRE_{self.numbers}"
-                        )
-                        self.numbers+=1
+                        new_non_terminal = RuleRefElement(f"RRE_{self.numbers}")
+                        self.numbers += 1
                         non_terminals.append(new_non_terminal)
                         self.rules.append(Rule(new_non_terminal, term))
                         multis[term] = new_non_terminal
