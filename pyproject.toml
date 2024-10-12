@@ -9,6 +9,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.9"
 lark = "^1.2.2"
+ipykernel = "^6.29.5"
 
 
 [tool.poetry.group.dev.dependencies]
